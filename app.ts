@@ -1,22 +1,34 @@
 import express, { Request, Response } from 'express';
+const hbs = require('hbs');
 
 const app = express()
 const port: number = 8080
 
-// middleware 
+// handelbars
+app.set('view engine', 'hbs')
+hbs.registerPartials( __dirname + '/views/partials');
 
 app.use(express.static('public'));
 
 app.get('/', (req : Request, res: Response) => {
-    res.sendFile(__dirname + '/public/index.html')
-})
+    res.render('home', {
+        name: 'Jonatán Guillén',
+        title: 'Curso de Node JS'
+    });
+});
 
 app.get('/elements', (req : Request, res: Response) => {
-    res.sendFile(__dirname + '/public/elements.html')
+    res.render('elements', {
+        name: 'Jonatán Guillén',
+        title: 'Curso de Node JS'
+    });
 })
 
 app.get('/generic', (req : Request, res: Response) => {
-    res.sendFile(__dirname + '/public/generic.html')
+    res.render('generic', {
+        name: 'Jonatán Guillén',
+        title: 'Curso de Node JS'
+    });
 })
 
 app.get('*', (req : Request, res: Response) => {
