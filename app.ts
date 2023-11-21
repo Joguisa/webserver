@@ -1,17 +1,26 @@
 import express, { Request, Response } from 'express';
-const hbs = require('hbs');
+import hbs from 'hbs';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const app = express()
-const port: number = 8080
+const app = express();
+const port: number = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
-// handelbars
-app.set('view engine', 'hbs')
-hbs.registerPartials( __dirname + '/views/partials');
+// handlebars
+app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials');
 
 app.use(express.static('public'));
 
-app.get('/', (req : Request, res: Response) => {
+app.get('/', (req: Request, res: Response) => {
     res.render('home', {
+        name: 'Jonatán Guillén',
+        title: 'Curso de Node JS'
+    });
+});
+
+app.get('/generic', (req : Request, res: Response) => {
+    res.render('generic', {
         name: 'Jonatán Guillén',
         title: 'Curso de Node JS'
     });
@@ -19,13 +28,6 @@ app.get('/', (req : Request, res: Response) => {
 
 app.get('/elements', (req : Request, res: Response) => {
     res.render('elements', {
-        name: 'Jonatán Guillén',
-        title: 'Curso de Node JS'
-    });
-})
-
-app.get('/generic', (req : Request, res: Response) => {
-    res.render('generic', {
         name: 'Jonatán Guillén',
         title: 'Curso de Node JS'
     });
